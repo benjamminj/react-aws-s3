@@ -47,11 +47,7 @@ class ReactS3Client {
       });
     }
     public async deleteFile(fileName: string): Promise<DeleteResponse> {
-      const url: string = `https://${this.config.bucketName}.s3${
-        this.config.region ? "-" + this.config.region : ""
-        }.amazonaws.com/${
-        this.config.dirName ? this.config.dirName + "/" : ""
-        }${fileName}`;
+      const url = GetUrl(this.config);
 
       const deleteResult = await fetch(url, { method: "delete" });
       if (!deleteResult.ok) return Promise.reject(deleteResult);
